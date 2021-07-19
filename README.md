@@ -8,6 +8,9 @@ https://github.com/be5invis/Sarasa-Gothic
 Nerd fonts.
 https://github.com/ryanoasis/nerd-fonts
 
+awsome-jp-coding-fonts
+https://github.com/tsunesan3/awsome-jp-coding-fonts
+
 # build
 
 ```shell
