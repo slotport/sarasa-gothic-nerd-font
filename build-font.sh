@@ -30,7 +30,7 @@ fi
 
 FONTFORGE_VERSION=$(fontforge --version 2>&1 | grep Version: | sed -E 's/^\s+Version:\s+//')
 if [[ ${FONTFORGE_VERSION} -lt ${FONTFORGE_VERSION_MINIMAL} ]]; then
-    echo "fontforge must equal or newer than 20200314"
+    echo "fontforge must be equal or newer than 20200314"
     exit 1
 fi
 
