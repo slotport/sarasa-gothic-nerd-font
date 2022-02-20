@@ -2,9 +2,9 @@ name: build
 
 on:
   push:
-    branches: [ ghaction ]
+    branches: [ master ]
   workflow_dispatch:
-    branches: [ ghaction ]
+    branches: [ master ]
 
 jobs:
 
