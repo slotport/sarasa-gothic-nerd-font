@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+    branches: [ ghaction ]
+  workflow_dispatch:
+    branches: [ ghaction ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - id: commit
+      uses: pr-mpt/actions-commit-hash@v1
+
+    - name: install unitettc
+      run: |
+        curl -O http://yozvox.web.fc2.com/unitettc.zip
+        unzip -p unitettc.zip unitettc/unitettc64  > unitettc64
+        chmod +x unitettc64
+
+    - name: install package
+      run: |
+        sudo apt-get install -q -y p7zip-full fontforge fonttools
+
+    - name: build
+      run: |
+        UNITETTC=./unitettc64 bash -x build-font.sh
+        
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        filename: 'SarasaFixedJNerdFont-${{ steps.commit.outputs.short }}.zip'
+        path: SarasaFixedJNerdFont.ttc
+
+    - name: Publish automated release
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Automated build"
+        files: |
+            SarasaFixedJNerdFont-${{ steps.commit.outputs.short }}.zip
